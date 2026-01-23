@@ -29,13 +29,32 @@ public class main {
                 "Madre", "Mago", "Mapa", "Marco", "Martes", "Marzo", "Mesa", "Metro", "Miedo", "Móvil"};
         int intentos=5, filas=5;
         int posicionpalabra= getrandom();
-        String caracterespalabra= getpalabra(listapalabras, posicionpalabra);
+        String palabra= getpalabra(listapalabras, posicionpalabra);
         System.out.println("LA PALABRA DEL DÍA");
-        print(caracterespalabra);
+        print(palabra);
         System.out.println();
-        System.out.println("INGRESA LA PALABRA");
-        String p=sc.next();
-        
+        String mipalabra="";
+
+        //COMIENZA EL JUEGO
+        while (intentos>0){
+            System.out.println("INGRESA LA PALABRA");
+            mipalabra=sc.next();
+            int tammipalabra =mipalabra.length();
+            intentos-=1;
+            
+            //COMPROBAR QUE LAS LETRAS COINCIDAN
+            for (int i = 0; i < tammipalabra; i++) {
+                if (mipalabra.charAt(i)==palabra.charAt(i)){
+
+                }
+            }
+            for (int i = 0; i < tammipalabra; i++) {
+
+            }
+            //BUCLE QUE IMPRIME LOS CARACTERES DE COLORES
+        }
+
+
 
 
 
