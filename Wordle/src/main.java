@@ -28,37 +28,46 @@ public class main {
                 "Kilo", "Kiosco", "Lápiz", "Leche", "Lento", "Libro", "Limón", "Llama", "Llave", "Lobo",
                 "Madre", "Mago", "Mapa", "Marco", "Martes", "Marzo", "Mesa", "Metro", "Miedo", "Móvil"};
 
-        int intentos=5, filas=5;
-        int posicionpalabra= getrandom();
-        String palabra= getpalabra(listapalabras, posicionpalabra);
-        System.out.println("LA PALABRA DEL DÍA");
-        print(palabra);
-        System.out.println();
-        String mipalabra="";
 
-        //COMIENZA EL JUEGO
-        //QUIERO HACER UN ARRAY PARA GUARDAR LOS COLORES DE LOS CARACTERES
-
+        //BUCLE DEL JUEGO
         boolean jugar=true;
         while (jugar){
-
-        }
-        while (intentos>0){
-            System.out.println("INTENTOS RESTANTES: "+intentos);
-            boolean tampalabra=true;
-            System.out.println("INGRESA LA PALABRA");
-            mipalabra=sc.next();
-            int tammipalabra =mipalabra.length();
+            int intentostotales=5, jugadashechas=0;
+            int posicionpalabra= getrandom();
+            String palabra= getpalabra(listapalabras, posicionpalabra);
+            String mipalabra="";
             palabra=palabra.toUpperCase();
+            String[]historial=new String[intentostotales];
+            int tamaño=palabra.length();
+            boolean partidaganada=false;
 
+            while (jugadashechas<intentostotales){
+                //PARA QUE LA TERMINAL QUEDE LIMPIA
+                for (int i = 0; i < 20; i++) System.out.println();
 
-            if (tammipalabra!=palabra.length()){
-                System.out.println("La palabra debe tener "+palabra.length()+" letras");
-                continue;
-            }
+                //TABLERO
+                System.out.println("WORDLE");
+                // Imprimir lo que ya jugamos
+                for (int i = 0; i < jugadashechas; i++) {
+                    System.out.println(historial[i]);
+                }
+                for (int i = 0; i < (intentostotales - jugadashechas); i++) {
+                    for(int j = 0; j < palabra.length(); j++) System.out.print("_ ");
+                    System.out.println();
+                }
+
+                System.out.print("\nINTENTO " + (jugadashechas + 1) + ": ");
+                mipalabra=sc.next();
+                int tammipalabra =mipalabra.length();
+
+                if (tammipalabra!=palabra.length()){
+                    System.out.println("La palabra debe tener "+palabra.length()+" letras");
+                    continue;
+                }
                 mipalabra=mipalabra.toUpperCase();
+
+
                 //COMPROBAR QUE LAS LETRAS COINCIDAN
-                intentos-=1;
                 boolean[] usadaenSecreto = new boolean[palabra.length()];
                 String[] colores = new String[palabra.length()];
 
@@ -84,27 +93,48 @@ public class main {
                         }
                     }
                 }
-                for (int i = 0; i < colores.length; i++) {
-                    if (colores[i].equals("VERDE")) System.out.print("\u001B[32m" + mipalabra.charAt(i) + " \u001B[0m");
-                    else if (colores[i].equals("AMARILLO")) System.out.print("\u001B[33m" + mipalabra.charAt(i) + " \u001B[0m");
-                    else System.out.print("\u001B[37m" + mipalabra.charAt(i) + " \u001B[0m");
+                String filacoloreada= "";
+                for (int i = 0; i < tamaño; i++) {
+                    if (colores[i].equals("VERDE")) filacoloreada += "\u001B[32m" + mipalabra.charAt(i) + " \u001B[0m";
+                    else if (colores[i].equals("AMARILLO")) filacoloreada+="\u001B[33m" + mipalabra.charAt(i) + " \u001B[0m";
+                    else filacoloreada += "\u001B[37m" + mipalabra.charAt(i) + " \u001B[0m";
                 }
-                System.out.println();
+
+                historial[jugadashechas] = filacoloreada;
+                jugadashechas++;
 
                 if (mipalabra.equals(palabra)){
-                    System.out.println("FELICIDADES! GANASTE");
+                    partidaganada=true;
                     break;
                 }
-                if (intentos<=0){
-                    System.out.println("GAME OVER. LA PALABRA ERA "+palabra);
-                }
+            }
 
 
+            for (int i = 0; i < 20; i++) System.out.println();
+            System.out.println("=== RESULTADO FINAL ===");
+            for (int i = 0; i < jugadashechas; i++) System.out.println(historial[i]);
+
+            if (partidaganada) {
+                System.out.println("\n¡FELICIDADES! GANASTE.");
+            } else {
+                System.out.println("\nGAME OVER. LA PALABRA ERA: " + palabra);
+            }
+
+
+            System.out.println("¿VOLVER A JUGAR (SI/NO)?");
+            String volverajugar=sc.next();
+            if (volverajugar.equalsIgnoreCase("SI")){
+
+                jugar=true;
+            }
+            if (volverajugar.equalsIgnoreCase("NO")){
+                return;
+            }
         }
-        System.out.println("¿VOLVER A JUGAR (SI/NO)?");
-        String volverajugar=sc.next();
 
-        
+
+
+
 
 
 
