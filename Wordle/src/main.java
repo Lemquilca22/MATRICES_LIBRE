@@ -27,6 +27,7 @@ public class main {
                 "Icono", "Imán", "Indio", "Isla", "Items", "Jarra", "Jaula", "Joven", "Juego", "Jugo",
                 "Kilo", "Kiosco", "Lápiz", "Leche", "Lento", "Libro", "Limón", "Llama", "Llave", "Lobo",
                 "Madre", "Mago", "Mapa", "Marco", "Martes", "Marzo", "Mesa", "Metro", "Miedo", "Móvil"};
+
         int intentos=5, filas=5;
         int posicionpalabra= getrandom();
         String palabra= getpalabra(listapalabras, posicionpalabra);
@@ -36,23 +37,75 @@ public class main {
         String mipalabra="";
 
         //COMIENZA EL JUEGO
+        //QUIERO HACER UN ARRAY PARA GUARDAR LOS COLORES DE LOS CARACTERES
+
+        boolean jugar=true;
+        while (jugar){
+
+        }
         while (intentos>0){
+            System.out.println("INTENTOS RESTANTES: "+intentos);
+            boolean tampalabra=true;
             System.out.println("INGRESA LA PALABRA");
             mipalabra=sc.next();
             int tammipalabra =mipalabra.length();
-            intentos-=1;
-            
-            //COMPROBAR QUE LAS LETRAS COINCIDAN
-            for (int i = 0; i < tammipalabra; i++) {
-                if (mipalabra.charAt(i)==palabra.charAt(i)){
+            palabra=palabra.toUpperCase();
 
+
+            if (tammipalabra!=palabra.length()){
+                System.out.println("La palabra debe tener "+palabra.length()+" letras");
+                continue;
+            }
+                mipalabra=mipalabra.toUpperCase();
+                //COMPROBAR QUE LAS LETRAS COINCIDAN
+                intentos-=1;
+                boolean[] usadaenSecreto = new boolean[palabra.length()];
+                String[] colores = new String[palabra.length()];
+
+                for (int i = 0; i < tammipalabra; i++) {
+                    if (mipalabra.charAt(i)==palabra.charAt(i)){
+                        colores[i]="VERDE";
+                        usadaenSecreto[i]=true;
+                    }
                 }
-            }
-            for (int i = 0; i < tammipalabra; i++) {
+                for (int i = 0; i < tammipalabra; i++) {
+                    if (colores[i]== null){
+                        boolean encontrada=false;
+                        for (int j = 0; j < tammipalabra; j++) {
+                            if (!usadaenSecreto[j] && mipalabra.charAt(i)==palabra.charAt(j)){
+                                colores[i]="AMARILLO";
+                                usadaenSecreto[j]=true;
+                                encontrada=true;
+                                break;
+                            }
+                        }
+                        if (!encontrada){
+                            colores[i]="GRIS";
+                        }
+                    }
+                }
+                for (int i = 0; i < colores.length; i++) {
+                    if (colores[i].equals("VERDE")) System.out.print("\u001B[32m" + mipalabra.charAt(i) + " \u001B[0m");
+                    else if (colores[i].equals("AMARILLO")) System.out.print("\u001B[33m" + mipalabra.charAt(i) + " \u001B[0m");
+                    else System.out.print("\u001B[37m" + mipalabra.charAt(i) + " \u001B[0m");
+                }
+                System.out.println();
 
-            }
-            //BUCLE QUE IMPRIME LOS CARACTERES DE COLORES
+                if (mipalabra.equals(palabra)){
+                    System.out.println("FELICIDADES! GANASTE");
+                    break;
+                }
+                if (intentos<=0){
+                    System.out.println("GAME OVER. LA PALABRA ERA "+palabra);
+                }
+
+
         }
+        System.out.println("¿VOLVER A JUGAR (SI/NO)?");
+        String volverajugar=sc.next();
+
+        
+
 
 
 

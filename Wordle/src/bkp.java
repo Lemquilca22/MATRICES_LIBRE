@@ -8,30 +8,15 @@ public class bkp {
 
     }
     public static String getpalabra(String[] listapalabras, int posicionpalabra){
-        String  palabraescogida=listapalabras[posicionpalabra];
-        return palabraescogida;
+        return listapalabras[posicionpalabra];
     }
     public static void print (String palabra){
         for (int i = 0; i < palabra.length(); i++) {
             System.out.print("_ ");
         }
     }
-    public static String verificarpalabra(String palabrauser, String palabraescogida){
-        Scanner sc=new Scanner(System.in);
-        boolean comprobar=true;
-        try{
-            palabrauser=sc.next();
-            if (!(palabrauser.length()>palabraescogida.length())){
-                throw new Exception("La palabra es de maximo"+palabraescogida.length()+" letras");
-            }
-            comprobar=false;
-        }catch (Exception e){
-            System.out.println(e);
-        }
-        return palabrauser;
-    }
     public static void main(String[] args) {
-
+        Scanner sc=new Scanner(System.in);
         String[] listapalabras= {"Agua", "Arena", "Arroz", "Asado", "Audio", "Baile", "Barco", "Bello", "Broma", "Busca",
                 "Cable", "Calor", "Canto", "Carro", "Cebra", "Chapa", "Cielo", "Cofre", "Comer", "Cuadro",
                 "Dardo", "Datos", "Debajo", "Dedo", "Deseo", "Disco", "Dicha", "Dosis", "Duda", "Dueño",
@@ -42,17 +27,37 @@ public class bkp {
                 "Icono", "Imán", "Indio", "Isla", "Items", "Jarra", "Jaula", "Joven", "Juego", "Jugo",
                 "Kilo", "Kiosco", "Lápiz", "Leche", "Lento", "Libro", "Limón", "Llama", "Llave", "Lobo",
                 "Madre", "Mago", "Mapa", "Marco", "Martes", "Marzo", "Mesa", "Metro", "Miedo", "Móvil"};
+
         int intentos=5, filas=5;
         int posicionpalabra= getrandom();
-        String palabrauser="";
-        String palabraescogida=getpalabra(listapalabras, posicionpalabra);
-        String caracterespalabra= palabraescogida;
+        String palabra= getpalabra(listapalabras, posicionpalabra);
         System.out.println("LA PALABRA DEL DÍA");
-        print(caracterespalabra);
+        print(palabra);
         System.out.println();
-        System.out.println("INGRESA LA PALABRA");
-        palabrauser=verificarpalabra(palabrauser, palabraescogida);
-        System.out.println(palabrauser);
+        String mipalabra="";
+
+        //COMIENZA EL JUEGO
+        //QUIERO HACER UN ARRAY PARA GUARDAR LOS COLORES DE LOS CARACTERES
+        String[] colores = new String[palabra.length()];
+        while (intentos>0){
+            System.out.println("INGRESA LA PALABRA");
+            mipalabra=sc.next();
+            int tammipalabra =mipalabra.length();
+            intentos-=1;
+
+            //COMPROBAR QUE LAS LETRAS COINCIDAN
+            for (int i = 0; i < tammipalabra; i++) {
+                if (mipalabra.charAt(i)==palabra.charAt(i)){
+
+                }
+            }
+            for (int i = 0; i < tammipalabra; i++) {
+
+            }
+            //BUCLE QUE IMPRIME LOS CARACTERES DE COLORES
+        }
+
+
 
 
 
