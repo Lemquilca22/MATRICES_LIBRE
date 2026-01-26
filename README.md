@@ -5,7 +5,7 @@ Wordle es un popular juego de palabras online, donde los usuarios deben adivinar
 ## COMO JUGAR 
 
    ### MECANICA 
-   El juego tiene una base de datos (array tipo String) con 100 nombres, al inicio del juego el programa elige una palabra aleatoria de su base de datos.
+   El juego tiene una base de datos (array tipo String) con 100 nombres, al inicio del juego el programa elige una palabra aleatoria de su base de datos y nosotros debemos intentar adivinarla.
    
    Al iniciar el juego se generará la cantidad de letras que tiene esa palabra en un formato de "_ ",  Por ejemplo, si la palabra fuera piña, entonces en pantalla se verá "_ _ _ _ " y tambien la tabla con la cantidad de intentos que tenemos para lograr adivinar la palabra, 5 filas con la cantidad de columnas igual a la cantidad de letras de la palabra, usando el ejemplo de piña, entonces el tableros sería de 5 filas x 4 columnas.
 
