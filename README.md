@@ -1,4 +1,4 @@
-# WORDLE 🅰️
+# WORDLE 🥴
 ## DESCRIPCIÓN
 Wordle es un popular juego de palabras online, donde los usuarios deben adivinar una palabra  de 4-6 letras en un máximo de 5 intentos.
 
