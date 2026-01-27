@@ -1,40 +1,38 @@
-import java.util.Random;
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.net.URL;
 import java.util.Scanner;
 
-public class bkp {
-    public static int getrandom(){
-        Random random = new Random();
-        return random.nextInt(100);
+public class api {
+    public static String getpalabra() {
+        String palabra="";
+        try {
+            URL url = new URL("https://random-word-api.herokuapp.com/word?length=5&lang=es");
+            BufferedReader br = new BufferedReader(new InputStreamReader(url.openStream()));
 
-    } //ESTE METODO ES PARA OBTENER UN NUMERO RANDOM DEL 0 AL 99.
-    public static String getpalabra(String[] listapalabras, int posicionpalabra){
-        return listapalabras[posicionpalabra];
-    }//ESTE METODO SE ENTIENDE COMO LA PALABRA SECRETA (Devuelve la palabra)
-    public static void print (String palabra){
-        for (int i = 0; i < palabra.length(); i++) {
-            System.out.print("_ ");
+            String respuesta = br.readLine(); //devuelve palabra
+            br.close();
+
+             palabra = respuesta
+                    .replace("[", "")
+                    .replace("]", "")
+                    .replace("\"", "");
+
+        } catch (Exception e) {
+            System.out.println("error obteniendo pal");
         }
-    }// LA FUNCIÓN PRINCIPAL ES MOSTRAR LA PALABRA SECRETA EN "_ " ESPACIOS
-    public static void main(String[] args) {
+
+        return palabra;
+    }
+    public static void main(String[] args){
         Scanner sc=new Scanner(System.in);
-        String[] listapalabras= {"Agua", "Arena", "Arroz", "Asado", "Audio", "Baile", "Barco", "Bello", "Broma", "Busca",
-                "Cable", "Calor", "Canto", "Carro", "Cebra", "Chapa", "Cielo", "Cofre", "Comer", "Cuadro",
-                "Dardo", "Datos", "Debajo", "Dedo", "Deseo", "Disco", "Dicha", "Dosis", "Duda", "Dueño",
-                "Echar", "Efecto", "Eje", "Elite", "Enano", "Enero", "Envío", "Epoca", "Erizo", "Error",
-                "Feria", "Ficha", "Fiesta", "Firma", "Flaco", "Flora", "Fuego", "Fuerte", "Funda", "Fútbol",
-                "Gafas", "Gallo", "Gente", "Globo", "Golpe", "Goma", "Gorra", "Grano", "Grito", "Guante",
-                "Hacha", "Hielo", "Hierro", "Higo", "Hilo", "Hojas", "Hongo", "Horno", "Hueso", "Huevo",
-                "Icono", "Imán", "Indio", "Isla", "Items", "Jarra", "Jaula", "Joven", "Juego", "Jugo",
-                "Kilo", "Kiosco", "Lápiz", "Leche", "Lento", "Libro", "Limón", "Llama", "Llave", "Lobo",
-                "Madre", "Mago", "Mapa", "Marco", "Martes", "Marzo", "Mesa", "Metro", "Miedo", "Móvil"};
 
-
-        //BUCLE DEL JUEGO
         boolean jugar=true;
         while (jugar){
+            String palabrasecreta=getpalabra();
             int intentostotales=5, jugadashechas=0;
-            int posicionpalabra= getrandom();
-            String palabra= getpalabra(listapalabras, posicionpalabra);
+
+            String palabra= palabrasecreta;
             String mipalabra="";
             palabra=palabra.toUpperCase();
             String[]historial=new String[intentostotales];//ARRAY DONDE SE GUARDAN LAS PALABRAS QUE UTILIZAMOS EN PARTIDA.
