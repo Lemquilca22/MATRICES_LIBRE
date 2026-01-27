@@ -6,15 +6,15 @@ public class main {
         Random random = new Random();
         return random.nextInt(100);
 
-    }
+    } //ESTE METODO ES PARA OBTENER UN NUMERO RANDOM DEL 0 AL 99.
     public static String getpalabra(String[] listapalabras, int posicionpalabra){
          return listapalabras[posicionpalabra];
-    }
+    }//ESTE METODO SE ENTIENDE COMO LA PALABRA SECRETA (Devuelve la palabra)
     public static void print (String palabra){
         for (int i = 0; i < palabra.length(); i++) {
             System.out.print("_ ");
         }
-    }
+    }// LA FUNCIÓN PRINCIPAL ES MOSTRAR LA PALABRA SECRETA EN "_ " ESPACIOS
     public static void main(String[] args) {
         Scanner sc=new Scanner(System.in);
         String[] listapalabras= {"Agua", "Arena", "Arroz", "Asado", "Audio", "Baile", "Barco", "Bello", "Broma", "Busca",
@@ -37,46 +37,51 @@ public class main {
             String palabra= getpalabra(listapalabras, posicionpalabra);
             String mipalabra="";
             palabra=palabra.toUpperCase();
-            String[]historial=new String[intentostotales];
+            String[]historial=new String[intentostotales];//ARRAY DONDE SE GUARDAN LAS PALABRAS QUE UTILIZAMOS EN PARTIDA.
             int tamaño=palabra.length();
             boolean partidaganada=false;
 
             while (jugadashechas<intentostotales){
-                //PARA QUE LA TERMINAL QUEDE LIMPIA
+                //DA UN SALTO DE 20 LINEAS PARA QUE LA TERMINAL "QUEDE LIMPIA"
                 for (int i = 0; i < 20; i++) System.out.println();
 
                 //TABLERO
                 System.out.println("WORDLE");
-                // Imprimir lo que ya jugamos
+                // Esta parte imprime lo que ya jugamos, la cantidad de veces que se repite es la cantidad de jugadas que hemos hecho, que inicializa en 0
                 for (int i = 0; i < jugadashechas; i++) {
                     System.out.println(historial[i]);
                 }
+                // Aquí el objetivo es completar la tabla con los espacios vacios, si hicimos 2 jugadas, que esto se imprima 3 vecess por eso (intentos totales - jugadashechas)
                 for (int i = 0; i < (intentostotales - jugadashechas); i++) {
                     for(int j = 0; j < palabra.length(); j++) System.out.print("_ ");
                     System.out.println();
                 }
 
+                //
                 System.out.print("\nINTENTO " + (jugadashechas + 1) + ": ");
                 mipalabra=sc.next();
                 int tammipalabra =mipalabra.length();
 
+                //Comprobar que mi palabra sea de igual longitud que la palabra secreta
                 if (tammipalabra!=palabra.length()){
                     System.out.println("La palabra debe tener "+palabra.length()+" letras");
-                    continue;
+                    continue;//Aprendí que el continue hace que si no se cumple la condición regrese al bucle más cercano
                 }
                 mipalabra=mipalabra.toUpperCase();
 
 
                 //COMPROBAR QUE LAS LETRAS COINCIDAN
-                boolean[] usadaenSecreto = new boolean[palabra.length()];
-                String[] colores = new String[palabra.length()];
+                boolean[] usadaenSecreto = new boolean[palabra.length()];//ARRAY DE BOOLEANS, los espacios en default están en False
+                String[] colores = new String[palabra.length()];//Array de colores con tamaño igual a la cantidad de letras "PALABRA SECRETA"
 
+                //COMPROBAR LAS LETRAS EN VERDE
                 for (int i = 0; i < tammipalabra; i++) {
                     if (mipalabra.charAt(i)==palabra.charAt(i)){
                         colores[i]="VERDE";
                         usadaenSecreto[i]=true;
                     }
                 }
+                //COMPROBAR LAS AMARILLAS y GRISES/ Estas son las que en la posición array colores[i] continuen en Null, coincidan en una posición j y que en la posición[j] continue en false
                 for (int i = 0; i < tammipalabra; i++) {
                     if (colores[i]== null){
                         boolean encontrada=false;
