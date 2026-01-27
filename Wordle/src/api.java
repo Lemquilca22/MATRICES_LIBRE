@@ -96,27 +96,32 @@ public class api {
                         }
                     }
                 }
+                //En esta parte, se rellena el STRING filacoloreada, que utilizaremos para guardarlo en historial.
+                //¿Sabías que se puede guardar texto en color? Yo no hasta ahora.
+                //El for recorre la cantidad de letras de la palabra y la va sumando(agregando) al String Filacoloreada.
                 String filacoloreada= "";
                 for (int i = 0; i < tamaño; i++) {
                     if (colores[i].equals("VERDE")) filacoloreada += "\u001B[32m" + mipalabra.charAt(i) + " \u001B[0m";
                     else if (colores[i].equals("AMARILLO")) filacoloreada+="\u001B[33m" + mipalabra.charAt(i) + " \u001B[0m";
                     else filacoloreada += "\u001B[37m" + mipalabra.charAt(i) + " \u001B[0m";
                 }
-
+                //Guardamos el string en el historial
                 historial[jugadashechas] = filacoloreada;
-                jugadashechas++;
+                jugadashechas++;//SE SUMA LAS JUGADAS PARA QUE NO SEA INFINITO
 
+                //INCLUIMOS UNA CONDICIÓN DE GANAR SI LO LOGRAMOS ANTES DE QUE SE ACABE EL BUCLE (jugadashechas<intentostotales)
                 if (mipalabra.equals(palabra)){
                     partidaganada=true;
                     break;
                 }
             }
 
-
+            //IMPRIME EL HISTORIAL DE JUGADAS HECHAS
             for (int i = 0; i < 20; i++) System.out.println();
             System.out.println("=== RESULTADO FINAL ===");
             for (int i = 0; i < jugadashechas; i++) System.out.println(historial[i]);
 
+            //SE IMPRIMIRÁ UN MENSAJE DE ACUERDO CON EL BOOLEAN PARTIDAGANADA
             if (partidaganada) {
                 System.out.println("\n¡FELICIDADES! GANASTE.");
             } else {
